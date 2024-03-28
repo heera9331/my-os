@@ -1,0 +1,1 @@
+; write asm program that print string char-by-char
