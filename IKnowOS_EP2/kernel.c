@@ -1,11 +1,7 @@
 #include "include/screen.h"
-#include <stdio.h>
-#include "gui.h"
-
-extern desktop;
+#include <stdio.h> 
 
 void main()
 {
-    printf("hello printf by c\n");
-    desktop();
+    printf("hello printf by c\n"); 
 }
