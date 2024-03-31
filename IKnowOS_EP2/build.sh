@@ -31,3 +31,5 @@ qemu-system-x86_64 -kernel ./newos/build/kernel.bin
 
 # run qemu using .ios
 # qemu-system-x86_64 -hda path_to_disk_image
+
+# current path - /d/

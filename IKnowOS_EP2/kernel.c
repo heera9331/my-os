@@ -1,7 +1,9 @@
-#include "include/screen.h"
-#include <stdio.h> 
+#include "include/screen.h" 
 
 void main()
 {
-    printf("hello printf by c\n"); 
+    print("hello printf by c\n");
 }
+
+
+// current path
