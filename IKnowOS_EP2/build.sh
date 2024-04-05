@@ -9,20 +9,20 @@
 # modified --------------------------------------------------
 
 # Assemble kernel.asm using NASM
-nasm -f elf32 kernel.asm -o ./newos/bin/kernel_asm.o
+nasm -f elf32 kernel.asm -o ./objs/kernel_asm.o
 
 # Compile kernel.c using GCC
-gcc -m32 -c kernel.c -o ./newos/bin/kernel_c.o
+gcc -m32 -c kernel.c -o ./objs/kernel_c.o
 
 # Link kernel_asm.o and kernel_c.o using LD
 # ld -m elf_i386 -T link.ld -o iknow/boot/kernel.bin kernel_asm.o kernel_c.o
 # ld -m elf_i386 -o iknow/boot/kernel.bin kernel_asm.o kernel_c.o
 
 # alternate command -> combine all object files  => make single executable file
-ld -m elf_i386 -o ./newos/build/kernel.bin ./newos/bin/*.o
+ld -m elf_i386 -o ./kernel.bin ./objs/*.o
 
 # Run the kernel.bin using QEMU
-qemu-system-x86_64 -kernel ./newos/build/kernel.bin
+qemu-system-x86_64 -kernel ./kernel.bin
 # read a
 
 
