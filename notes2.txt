@@ -1,0 +1,19 @@
+kernel binary - /mnt/d/PROGRAMMING/Git-Free/my-os/torvald/linux/arch/x86/boot/bzImage
+
+disk creation - qemu-img create -f qcow2 disk.img 1G
+
+qemu-system-x86_64 -kernel /mnt/d/PROGRAMMING/Git-Free/my-os/torvald/linux/arch/x86/boot/bzImage -hda disk.img -append "root=/dev/sda console=ttyS0"
+
+// making initramfs - kernel version 6.6.24
+// ios file generation steps
+
+
+dracut -f /boot/initramfs-<version>.img <version>
+mkdir iso
+cp /path/to/your/kernel/bzImage iso/
+cp /boot/initramfs-<version>.img iso/
+genisoimage -o custom_linux.iso -b bzImage -c boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table iso/
+
+
+ 127  sudo dracut -f /boot/initramfs-5.15.146.1-microsoft-standard-WSL2
+  128  sudo dracut -f /boot/initramfs-5.15.146
