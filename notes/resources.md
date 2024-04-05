@@ -82,3 +82,5 @@ nasm boot_sect.asm -f bin -o boot_sect.bin
 # run the created binary on emulator
 qemu-system-x86_64 boot_sect.bin
 ```
+
+**Print Hello**
