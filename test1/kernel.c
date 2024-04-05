@@ -1,17 +1,23 @@
-void main()
-{
-    // Simple print function (you would replace this with a real print function)
-    const char *msg = "Hello, world!";
-    for (int i = 0; msg[i] != '\0'; ++i)
-    {
-        // Output each character to the VGA text buffer
-        char *video_memory = (char *)0xb8000;
-        video_memory[i * 2] = msg[i];
-        video_memory[i * 2 + 1] = 0x07; // Text attribute: white on black
-    }
+// kernel.c
 
-    // Infinite loop to keep the kernel running
-    while (1)
-    {
+void kernel_main() {
+    const char *hello_msg = "Hello from kernel!\n";
+    
+    // Function to print the message
+    print_string(hello_msg);
+    
+    // Loop indefinitely
+    while(1);
+}
+
+// Function to print a string
+void print_string(const char *str) {
+    // Pointer to video memory
+    volatile char *video_memory = (volatile char*)0xb8000;
+    
+    // Loop through the string and print each character
+    while (*str != '\0') {
+        *video_memory++ = *str++;
+        *video_memory++ = 0x07; // White color on black background
     }
 }

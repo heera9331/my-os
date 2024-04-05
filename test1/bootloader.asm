@@ -1,20 +1,29 @@
+BITS 16                   ; Set the assembly to 16-bit mode
+
+global _start             ; Entry point for the bootloader
+
 section .text
-    global _start
-
 _start:
-    ; Set up segments
-    xor ax, ax          ; Clear ax register
-    mov ds, ax          ; Set data segment to 0
-    mov es, ax          ; Set extra segment to 0
+    mov ax, 0             ; Set up the segment registers
+    mov ds, ax
+    mov es, ax
 
-    ; Load kernel from disk
-    mov ah, 0x02        ; BIOS function to read sectors
-    mov al, 1           ; Number of sectors to read
-    mov ch, 0x00        ; Cylinder number
-    mov dh, 0x00        ; Head number
-    mov cl, 0x02        ; Sector number (the kernel starts at sector 2)
-    mov bx, 0x8000      ; Load address in memory (where the kernel will be loaded)
-    int 0x13            ; Call BIOS interrupt
+    mov si, hello_msg     ; Load the address of the hello message
+    call print_string     ; Call the print_string function to print it
 
-    ; Jump to kernel
-    jmp 0x8000:0000     ; Jump to the entry point of the kernel
+    jmp $
+
+print_string:
+    lodsb                 ; Load the next byte from the string into AL
+    cmp al, 0             ; Check if it's the null terminator
+    je .done              ; If it is, we're done
+    mov ah, 0x0E          ; BIOS tty function to print a character
+    int 0x10              ; Call BIOS interrupt to print the character
+    jmp print_string      ; Repeat for the next character
+.done:
+    ret
+
+hello_msg db "Hello, World!", 0  ; Null-terminated string to print
+
+times 510 - ($ - _start) db 0     ; Pad the bootloader to 510 bytes
+dw 0xAA55                         ; Boot signature

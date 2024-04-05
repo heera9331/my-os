@@ -1,0 +1,3 @@
+nasm -f elf32 bootloader.asm -o bootloader.o
+gcc -m32 -c kernel.c -o kernel.o
+ld -m elf_i386 -o kernel.bin *.o
