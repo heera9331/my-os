@@ -58,3 +58,27 @@ https://www.tutorialspoint.com/compile_asm_online.php
 
 **System Calls the number**
 https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
+
+**Important Commands**
+
+```asm
+
+loop:
+    jmp loop
+
+
+times 510 - ($ - $$) db 0
+
+dw 0xaa55
+
+
+```
+
+```bash
+# make binary
+
+nasm boot_sect.asm -f bin -o boot_sect.bin
+
+# run the created binary on emulator
+qemu-system-x86_64 boot_sect.bin
+```
