@@ -1,0 +1,46 @@
+# Compiler
+COMPILER = gcc
+ASSEMBLER = nasm
+LINKER = ld
+
+# Flags
+CFLAGS = -m32 -c -ffreestanding
+ASFLAGS = -f elf32
+LDFLAGS = -m elf_i386 -T src/link.ld
+
+# Emulator
+EMULATOR = qemu-system-i386
+EMULATOR_FLAGS = -kernel
+
+# Source files
+SRCS = $(wildcard src/*.c) $(wildcard src/*.asm)
+
+# Object files
+OBJS = $(patsubst src/%.c, build/%.o, $(filter %.c, $(SRCS))) \
+       $(patsubst src/%.asm, build/%.o, $(filter %.asm, $(SRCS)))
+
+# Target executable
+TARGET = kernel.elf
+
+# Build target
+all: $(TARGET)
+
+# Rule for compiling C source files
+build/%.o: src/%.c
+    $(COMPILER) $(CFLAGS) $< -o $@
+
+# Rule for assembling assembly source files
+build/%.o: src/%.asm
+    $(ASSEMBLER) $(ASFLAGS) $< -o $@
+
+# Linking the object files
+$(TARGET): $(OBJS)
+    $(LINKER) $(LDFLAGS) $^ -o $@
+
+# Emulator target
+run: $(TARGET)
+    $(EMULATOR) $(EMULATOR_FLAGS) $(TARGET)
+
+# Clean target
+clean:
+    rm -rf build/*.o $(TARGET)
