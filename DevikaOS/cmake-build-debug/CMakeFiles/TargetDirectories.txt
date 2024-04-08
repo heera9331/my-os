@@ -1,3 +1,0 @@
-D:/PROGRAMMING/Git-Free/my-os/DevikaOS/cmake-build-debug/CMakeFiles/DevikaOS.dir
-D:/PROGRAMMING/Git-Free/my-os/DevikaOS/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/PROGRAMMING/Git-Free/my-os/DevikaOS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
