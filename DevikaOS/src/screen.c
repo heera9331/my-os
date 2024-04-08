@@ -9,7 +9,11 @@
 int cursorX = 0, cursorY = 0;
 const uint8 sw = 80, sh = 25, sd = 2;
 
+// color variable is white
 int color = 0x0F;
+int whiteColor = 0x0F;
+int blackColor = 0x00;
+
 void clearLine(uint8 from, uint8 to)
 {
     uint16 i = sw * from * sd;
@@ -17,7 +21,7 @@ void clearLine(uint8 from, uint8 to)
     string videoMemory = (string)0xb8000;
     for (i; i < (sw * to * sd); i++)
     {
-        videoMemory[(i / 2) * 2 + 1] = color;
+        videoMemory[(i / 2) * 2 + 1] = blackColor;
         videoMemory[(i / 2) * 2] = 0;
     }
 }
@@ -78,9 +82,11 @@ void printChar(char c)
     switch (c)
     {
     case (0x08): // Backspace
-        if (cursorX > 0)
+        if (cursorX >= 0)
         {
             cursorX--;
+            videoMemory[((cursorY * sw + cursorX)) * 2] = ' ';
+            videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = blackColor;
         }
         break;
     case ('\r'): // Carriage return
@@ -92,7 +98,7 @@ void printChar(char c)
         break;
     default: // Normal character
         videoMemory[((cursorY * sw + cursorX)) * 2] = c;
-        videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = color;
+        videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = whiteColor;
         cursorX++;
         break;
     }
