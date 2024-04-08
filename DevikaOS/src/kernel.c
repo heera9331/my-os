@@ -10,6 +10,8 @@
  
 int main() {
     clearScreen();
+    print("kernel started\n");
+    print("Interrupt Service Routine\n");
     isrInstall();
     launchShell(4);
     return 0;

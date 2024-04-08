@@ -74,32 +74,29 @@ void newLineCheck()
 
 void printChar(char c)
 {
-    string videoMemory = (string)0xb8000;
+    string videoMemory = (string)0xb8000; // Mark memory as volatile
     switch (c)
     {
-    case (0x08):
+    case (0x08): // Backspace
         if (cursorX > 0)
         {
             cursorX--;
-            videoMemory[(cursorY * sw + cursorX) * sd] = 0; //(0xF0 & color)
         }
         break;
-        /* case (0x09):
-                 cursorX = (cursorX + 8) & ~(8 - 1);
-                 break;*/
-    case ('\r'):
+    case ('\r'): // Carriage return
         cursorX = 0;
         break;
-    case ('\n'):
+    case ('\n'): // Newline
         cursorX = 0;
         cursorY++;
         break;
-    default:
-        videoMemory[((cursorY * sw + cursorX)) * sd] = c;
-        videoMemory[((cursorY * sw + cursorX)) * sd + 1] = color;
+    default: // Normal character
+        videoMemory[((cursorY * sw + cursorX)) * 2] = c;
+        videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = color;
         cursorX++;
         break;
     }
+    // Check if cursor exceeds screen width
     if (cursorX >= sw)
     {
         cursorX = 0;
@@ -109,16 +106,13 @@ void printChar(char c)
     newLineCheck();
 }
 
-void print(string ch)
+void print(string str)
 {
-    uint16 i = 0;
-    uint8 len = strLength(ch); // Updated (Now we store string length on a variable to call the function only once)
-    for (i; i < len; i++)
+    while (*str != '\0')
     {
-        printChar(ch[i]);
+        printChar(*str);
+        str++;
     }
-    /* while((ch[i] != (char)0) && (i<=length))
-             print(ch[i++]);*/
 }
 
 void setScreenColor(int text_color, int bg_color)
