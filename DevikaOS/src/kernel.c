@@ -13,6 +13,7 @@ int main() {
     print("kernel started\n");
     print("Interrupt Service Routine\n");
     isrInstall();
+    print("Launching shell\n");
     launchShell(4);
     return 0;
 }
