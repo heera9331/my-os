@@ -75,51 +75,7 @@ void newLineCheck()
         scrollUp(1);
     }
 }
-
-void printChar(char c)
-{
-    string videoMemory = (string)0xb8000; // Mark memory as volatile
-    switch (c)
-    {
-    case (0x08): // Backspace
-        if (cursorX >= 0)
-        {
-            cursorX--;
-            videoMemory[((cursorY * sw + cursorX)) * 2] = ' ';
-            videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = blackColor;
-        }
-        break;
-    case ('\r'): // Carriage return
-        cursorX = 0;
-        break;
-    case ('\n'): // Newline
-        cursorX = 0;
-        cursorY++;
-        break;
-    default: // Normal character
-        videoMemory[((cursorY * sw + cursorX)) * 2] = c;
-        videoMemory[((cursorY * sw + cursorX)) * 2 + 1] = whiteColor;
-        cursorX++;
-        break;
-    }
-    // Check if cursor exceeds screen width
-    if (cursorX >= sw)
-    {
-        cursorX = 0;
-        cursorY++;
-    }
-    updateCursor();
-    newLineCheck();
-}
-
-void print(string str)
-{
-    while (*str != '\0')
-    {
-        printChar(*str);
-        str++;
-    }
-}
+ 
 
 void setScreenColor(int text_color, int bg_color)
 {
@@ -135,6 +91,6 @@ void printColored(string ch, int text_color, int bg_color)
 {
     int current_color = color;
     setScreenColor(text_color, bg_color);
-    print(ch);
+    puts(ch);
     setScreenColorFromColorCode(current_color);
 }

@@ -4,19 +4,13 @@
  * @desc - Utilities for DevikaOS
  */
 
-#ifndef _UTIL_H
-#define _UTIL_H
+#ifndef UTIL_H
+#define UTIL_H
+#endif
 
-#include "types.h"
-#include "string.h"
+#include "../../cdevika/include/types.h"
+#include "../../cdevika/include/string.h"
+#include "../../cdevika/include/stdlib.h"
 
 #define MAX_MEMORY_SIZE 1000
-
-void memoryCopy(const char *source, char *dest, int noOfBytes);
 void memorySet(uint8 *dest, uint8 val, uint32 len);
-string intToAscii(int n, char str[]);
-int strToInt(string str);
-string intToStr(int n);
-void* memoryAllocate(int noOfBytes);
-
-#endif // DEVIKAOS_UTIL_H

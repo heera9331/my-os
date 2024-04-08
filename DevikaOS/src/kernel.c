@@ -4,16 +4,18 @@
  * @desc -
  * */
 
-#include "include/shell.h"
-#include "include/screen.h"
-#include "include/isr.h"
+#include "kernel/include/shell.h"
+#include "kernel/include/isr.h"
+#include "kernel/include/screen.h"
  
+#include "./cdevika/include/stdio.h"
+
 int main() {
     clearScreen();
-    print("kernel started\n");
-    print("Interrupt Service Routine\n");
+    puts("kernel started");
+    puts("Interrupt Service Routine");
     isrInstall();
-    print("Launching shell\n");
+    puts("Launching shell");
     launchShell(4);
     return 0;
 }

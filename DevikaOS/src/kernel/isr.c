@@ -47,168 +47,168 @@ void isrInstall()
 /*Handlers*/
 void isr0()
 {
-    print(exceptionMessages[0]);
+    puts(exceptionMessages[0]);
     asm("hlt");
 }
 void isr1()
 {
-    print(exceptionMessages[1]);
+    puts(exceptionMessages[1]);
     asm("hlt");
 }
 void isr2()
 {
-    print(exceptionMessages[2]);
+    puts(exceptionMessages[2]);
     asm("hlt");
 }
 void isr3()
 {
-    print(exceptionMessages[3]);
+    puts(exceptionMessages[3]);
     asm("hlt");
 }
 void isr4()
 {
-    print(exceptionMessages[4]);
+    puts(exceptionMessages[4]);
     asm("hlt");
 }
 void isr5()
 {
-    print(exceptionMessages[5]);
+    puts(exceptionMessages[5]);
     asm("hlt");
 }
 void isr6()
 {
-    print(exceptionMessages[6]);
+    puts(exceptionMessages[6]);
     asm("hlt");
 }
 void isr7()
 {
-    print(exceptionMessages[7]);
+    puts(exceptionMessages[7]);
     asm("hlt");
 }
 void isr8()
 {
-    print(exceptionMessages[8]);
+    puts(exceptionMessages[8]);
     asm("hlt");
 }
 void isr9()
 {
-    print(exceptionMessages[9]);
+    puts(exceptionMessages[9]);
     asm("hlt");
 }
 void isr10()
 {
-    print(exceptionMessages[10]);
+    puts(exceptionMessages[10]);
     asm("hlt");
 }
 void isr11()
 {
-    print(exceptionMessages[11]);
+    puts(exceptionMessages[11]);
     asm("hlt");
 }
 void isr12()
 {
-    print(exceptionMessages[12]);
+    puts(exceptionMessages[12]);
     asm("hlt");
 }
 void isr13()
 {
-    print(exceptionMessages[13]);
+    puts(exceptionMessages[13]);
     asm("hlt");
 }
 void isr14()
 {
-    print(exceptionMessages[14]);
+    puts(exceptionMessages[14]);
     asm("hlt");
 }
 void isr15()
 {
-    print(exceptionMessages[15]);
+    puts(exceptionMessages[15]);
     asm("hlt");
 }
 void isr16()
 {
-    print(exceptionMessages[16]);
+    puts(exceptionMessages[16]);
     asm("hlt");
 }
 void isr17()
 {
-    print(exceptionMessages[17]);
+    puts(exceptionMessages[17]);
     asm("hlt");
 }
 void isr18()
 {
-    print(exceptionMessages[18]);
+    puts(exceptionMessages[18]);
     asm("hlt");
 }
 void isr19()
 {
-    print(exceptionMessages[19]);
+    puts(exceptionMessages[19]);
     asm("hlt");
 }
 void isr20()
 {
-    print(exceptionMessages[20]);
+    puts(exceptionMessages[20]);
     asm("hlt");
 }
 void isr21()
 {
-    print(exceptionMessages[21]);
+    puts(exceptionMessages[21]);
     asm("hlt");
 }
 void isr22()
 {
-    print(exceptionMessages[22]);
+    puts(exceptionMessages[22]);
     asm("hlt");
 }
 void isr23()
 {
-    print(exceptionMessages[23]);
+    puts(exceptionMessages[23]);
     asm("hlt");
 }
 void isr24()
 {
-    print(exceptionMessages[24]);
+    puts(exceptionMessages[24]);
     asm("hlt");
 }
 void isr25()
 {
-    print(exceptionMessages[25]);
+    puts(exceptionMessages[25]);
     asm("hlt");
 }
 void isr26()
 {
-    print(exceptionMessages[26]);
+    puts(exceptionMessages[26]);
     asm("hlt");
 }
 void isr27()
 {
-    print(exceptionMessages[27]);
+    puts(exceptionMessages[27]);
     asm("hlt");
 }
 void isr28()
 {
-    print(exceptionMessages[28]);
+    puts(exceptionMessages[28]);
     asm("hlt");
 }
 void isr29()
 {
-    print(exceptionMessages[29]);
+    puts(exceptionMessages[29]);
     asm("hlt");
 }
 void isr30()
 {
-    print(exceptionMessages[30]);
+    puts(exceptionMessages[30]);
     asm("hlt");
 }
 void isr31()
 {
-    print(exceptionMessages[31]);
+    puts(exceptionMessages[31]);
     asm("hlt");
 }
 
 /*End Handlers*/
 
-/* To print the message which defines every exception */
+/* To puts the message which defines every exception */
 string exceptionMessages[] = {
     "Division By Zero",
     "Debug",

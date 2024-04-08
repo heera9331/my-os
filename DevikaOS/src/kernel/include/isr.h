@@ -5,11 +5,13 @@
  * */
 
 
-#ifndef _ISR_H
-#define _ISR_H
+#ifndef ISR_H
+#define ISR_H
 #endif //DEVIKAOS_ISR_H
 
-#include "types.h"
+ 
+#include "../../cdevika/include/types.h"
+#include "../../cdevika/include/stdio.h"
 #include "idt.h"
 #include "screen.h"
 #include "util.h"

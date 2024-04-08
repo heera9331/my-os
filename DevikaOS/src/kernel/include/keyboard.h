@@ -1,4 +1,5 @@
 /**
+/**
  * @author - Heera Singh
  * @date - 07-04-2024
  * @desc -
@@ -9,8 +10,9 @@
 #define DEVIKAOS_KEYBOARD_H
 
 #include "screen.h"
-#include "util.h"
+#include "util.h" 
+#include "../../cdevika/include/stdio.h"
 
-string strRead();
+string str_read();
 
 #endif //DEVIKAOS_KEYBOARD_H

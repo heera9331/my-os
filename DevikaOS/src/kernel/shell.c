@@ -5,54 +5,61 @@
  * */
 
 #include "include/shell.h"
-#include "include/util.h"
+
+void sum();
+void help();
+
+void launchShell(int n)
+{
+    string ch = (string)malloc(200); // util.h
+    int counter = 0;
+    puts("DevikaOS shell launched");
+    do
+    {
+        print("/usr/heera: $ ");
+        // memory_copy(readStr(), ch,100);
+        str_cpy(str_read(), ch, 100);
+        if (str_equal(ch, "exit"))
+        {
+            puts("\nGood Bye!\n");
+            return;
+        }
+        else if (str_equal(ch, "help"))
+        {
+            help();
+        }
+        else if (str_equal(ch, "clear"))
+        {
+            clearScreen();
+        }
+        else if (str_equal(ch, "1"))
+        {
+            sum();
+        } else {
+            put_char('\n');
+            print("Command not found ");
+            print(ch);
+            put_char('\n');
+        }
+    } while (!str_equal(ch, "exit"));
+}
 
 void sum()
 {
-    print("\nEnter first number");
-    int n1 = strToInt(strRead());
-    print("\nEnter second number");
-    int n2 = strToInt(strRead());
+    puts("\nEnter first number");
+    int n1 = str_to_int(str_read());
+    puts("\nEnter second number");
+    int n2 = str_to_int(str_read());
     int sum = n1 + n2;
-    print("\n");
-    print(intToStr(sum));
+    puts("\n");
+    puts(int_to_str(sum));
 }
 
 void help()
 {
-    print("\n--------------------------");
-    print("\nHelp prompt");
-    print("\n'help' Help menu");
-    print("\n'exit' Exit from shell");
-    print("\n[1] addition ");
-}
-
-void launchShell(int n)
-{
-    string ch = (string)memoryAllocate(200); // util.h
-    int counter = 0;
-    print("\nDevikaOS shell launched");
-    do
-    {
-        print("\n/usr/heera: $ ");
-        // memory_copy(readStr(), ch,100);
-        memoryCopy(strRead(), ch, 100);
-        if (strEqual(ch, "exit"))
-        {
-            print("\nGood Bye!\n");
-            return;
-        }
-        else if (strEqual(ch, "help"))
-        {
-            help();
-        }
-        else if (strEqual(ch, "clear"))
-        {
-            clearScreen();
-        }
-        else if (strEqual(ch, "1"))
-        {
-            sum();
-        }
-    } while (!strEqual(ch, "exit"));
+    puts("\n--------------------------");
+    puts("\nHelp prompt");
+    puts("\n'help' Help menu");
+    puts("\n'exit' Exit from shell");
+    puts("\n[1] addition ");
 }
