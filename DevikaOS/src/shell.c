@@ -20,6 +20,8 @@ void sum()
 
 void help()
 {
+    print("\n--------------------------");
+    print("\nHelp prompt");
     print("\n'help' Help menu");
     print("\n'exit' Exit from shell");
     print("\n[1] addition ");
