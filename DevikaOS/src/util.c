@@ -41,7 +41,7 @@ void memorySet(uint8 *dest, uint8 val, uint32 len) {
  * K&R implementation
  */
 
-string int_to_ascii(int n, string str) {
+string intToAscii(int n, string str) {
     int i, sign;
     if ((sign = n) < 0) n = -n;
     i = 0;
@@ -56,9 +56,9 @@ string int_to_ascii(int n, string str) {
     return str;
 }
 
-string int_to_str(int n) {
+string intToStr(int n) {
     string ch = (void*)memoryAllocate(50);
-    int_to_ascii(n,ch);
+    intToAscii(n,ch);
     int len = strLength(ch);
     int i = 0;
     int j = len - 1;
@@ -72,7 +72,7 @@ string int_to_str(int n) {
     return ch;
 }
 
-int str_to_int(string ch) {
+int strToInt(string ch) {
 
     
     int n = 0;

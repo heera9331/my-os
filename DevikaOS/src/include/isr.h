@@ -15,8 +15,8 @@
 #include "util.h"
 
 
-extern string exception_messages[32];
-void isr_install();
+extern string exceptionMessages[32];
+void isrInstall();
 
 /* ISRs reserved for CPU exceptions */
 void isr0();

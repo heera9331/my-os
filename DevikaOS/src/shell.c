@@ -6,7 +6,7 @@
 
 #include "include/shell.h"
  
-void launch_shell(int n)
+void launchShell(int n)
 {
     string ch = (string)memoryAllocate(200); // util.h
     int counter = 0;

@@ -18,8 +18,9 @@ void scrollUp(uint8 lineNumber);
 void newLineCheck();
 void printChar(char c);
 void print(string str);
-void set_screen_color_from_color_code(int color_code);
-void set_screen_color(int text_color,int bg_color);
-void print_colored(string ch,int text_color,int bg_color);
+void setScreenColorFromColorCode(int color_code);
+// void set_screen_color_from_color_code(int color_code);
+void setScreeColor(int text_color,int bg_color);
+void printColored(string ch,int text_color,int bg_color);
 
 #endif

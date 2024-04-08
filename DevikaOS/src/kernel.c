@@ -10,7 +10,7 @@
  
 int main() {
     clearScreen();
-    isr_install();
-    launch_shell(4);
+    isrInstall();
+    launchShell(4);
     return 0;
 }

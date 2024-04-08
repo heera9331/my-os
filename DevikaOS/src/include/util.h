@@ -14,9 +14,9 @@
 
 void memoryCopy(const char *source, char *dest, int noOfBytes);
 void memorySet(uint8 *dest, uint8 val, uint32 len);
-string int_to_ascii(int n, char str[]);
-int str_to_int(string str);
-string int_to_str(int n);
+string intToAscii(int n, char str[]);
+int strToInt(string str);
+string intToStr(int n);
 void* memoryAllocate(int noOfBytes);
 
 #endif // DEVIKAOS_UTIL_H

@@ -3,6 +3,7 @@
  * @date - 07-04-2024
  * @desc -
  * */
+
 #ifndef _IDT_H
 #define _IDT_H
 
@@ -11,24 +12,24 @@
 #define KERNEL_CS 0x08
 
 typedef struct {
-    uint16 low_offset;
+    uint16 lowOffset;
     uint16 sel;
     uint8 always0;
     uint8 flags;
-    uint16 high_offset;
-} __attribute__((packed)) idt_gate_t;
+    uint16 highOffset;
+} __attribute__((packed)) idtGateT;
 
 typedef struct {
     uint16 limit;
     uint32 base;
-} __attribute__((packed)) idt_register_t;
+} __attribute__((packed)) idtRegisterT;
 
 #define IDT_ENTRIES 256
-extern idt_gate_t idt[IDT_ENTRIES];
-extern idt_register_t idt_reg;
+extern idtGateT idt[IDT_ENTRIES];
+extern idtRegisterT idtReg;
 
 /* Functions implemented in idt.c */
-void set_idt_gate(int n, uint32 handler);
-void set_idt();
+void setIdtGate(int n, uint32 handler);
+void setIdt();
 
-#endif //_IDT_H
+#endif //DEVIKAOS_IDT_H
