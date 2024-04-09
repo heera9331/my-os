@@ -84,3 +84,12 @@ qemu-system-x86_64 boot_sect.bin
 ```
 
 **Print Hello**
+
+**Interrupt Descriptor Table**
+
+The Interrupt Descriptor Table (IDT) is a data structure used in the x86 architecture to manage interrupts and exceptions. It contains entries, each describing how the processor should handle a particular interrupt or exception.
+
+**Global Descriptor Table**
+
+The Global Descriptor Table (GDT) is a data structure used by the x86 architecture to define memory segments and their access privileges. It's an essential part of memory management in protected mode.
+
