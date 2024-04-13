@@ -1,4 +1,4 @@
-nasm -f elf32 ./src/kernel.asm -o ./obj/kernel_asm.o
+nasm -f elf32 ./src/loader.s -o ./obj/loader.o
 gcc -m32 -c ./src/kernel.c -o ./obj/kernel.o -ffreestanding
 gcc -m32 -c ./src/kernel/system.c -o ./obj/system.o -ffreestanding
 gcc -m32 -c ./src/kernel/isr.c -o ./obj/isr.o -ffreestanding
@@ -12,4 +12,4 @@ gcc -m32 -c ./src/cdevika/stdio.c -o ./obj/stdio.o -ffreestanding
 gcc -m32 -c ./src/cdevika/stdlib.c -o ./obj/stdlib.o -ffreestanding
 gcc -m32 -c ./src/cdevika/string.c -o ./obj/string.o -ffreestanding
 
-ld -m elf_i386 -T ./src/link.ld -o ./boot/kernel.bin ./obj/kernel_asm.o ./obj/kernel.o ./obj/idt.o ./obj/keyboard.o ./obj/screen.o ./obj/string.o ./obj/system.o ./obj/util.o ./obj/shell.o ./obj/isr.o ./obj/stdio.o ./obj/stdlib.o
+ld -m elf_i386 -T ./src/link.ld -o ./boot/kernel.bin ./obj/loader.o ./obj/kernel.o ./obj/idt.o ./obj/keyboard.o ./obj/screen.o ./obj/string.o ./obj/system.o ./obj/util.o ./obj/shell.o ./obj/isr.o ./obj/stdio.o ./obj/stdlib.o
