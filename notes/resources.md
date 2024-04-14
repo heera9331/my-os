@@ -93,3 +93,7 @@ The Interrupt Descriptor Table (IDT) is a data structure used in the x86 archite
 
 The Global Descriptor Table (GDT) is a data structure used by the x86 architecture to define memory segments and their access privileges. It's an essential part of memory management in protected mode.
 
+**FAT**
+
+The FAT (File Allocation Table) file system is a popular file system used in various operating systems, including older versions of Windows, as well as in some embedded systems like digital cameras and portable devices. It's known for its simplicity and compatibility across different platforms.
+
