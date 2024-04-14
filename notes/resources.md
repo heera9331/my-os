@@ -1,3 +1,32 @@
+# OS Development Resources
+--
+
+This will help you to develop our own operating system
+
+1. boot loader -> loader.s
+2. Kernel
+	- printf => hello world
+3. Global Descriptor Table
+4. Hardware communication port.c
+5. Interrupts
+6. Keyboard
+7. Mouse
+8. PCI
+9. Graphics mode (VGA)
+10. GUI Framework
+11. Dynamic Memory Allocation
+12. Networking
+13. Hard drives
+14. System call
+15. Ethernet
+16. ARP
+17. Internet Protocol (IP)
+18. ICMP
+19. UDP
+20. TCP
+21. Partition Table
+22. File System (FAT32)
+
 **BIOS Functions**
 
 https://redirect.cs.umbc.edu/courses/undergraduate/CMSC211/fall01/burt/tech_help/BIOSandDOS_Interrupts.html
