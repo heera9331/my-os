@@ -5,6 +5,7 @@
  * */
 
 #include "include/shell.h"
+#include "include/mouse.h"
 
 void sum();
 void help();
@@ -14,6 +15,10 @@ void launchShell(int n)
     string ch = (string)malloc(200); // util.h
     int counter = 0;
     puts("DevikaOS shell launched");
+    while (1)
+    {
+        mouse_handler();
+    }
     do
     {
         print("/usr/heera: $ ");
@@ -35,7 +40,9 @@ void launchShell(int n)
         else if (str_equal(ch, "1"))
         {
             sum();
-        } else {
+        }
+        else
+        {
             put_char('\n');
             print("Command not found ");
             print(ch);
