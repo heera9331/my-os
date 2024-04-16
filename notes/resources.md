@@ -85,6 +85,16 @@ qemu-system-x86_64 boot_sect.bin
 
 **Print Hello**
 
+**Interrupt**
+
+An interrupt is a signal to the processor emitted by hardware or software indicating an event that needs immediate attention.
+
+Interrupt may be software or hardware.
+
+- Hardware interrupt
+- Software interrupt
+- Exception interrupt
+
 **Interrupt Descriptor Table**
 
 The Interrupt Descriptor Table (IDT) is a data structure used in the x86 architecture to manage interrupts and exceptions. It contains entries, each describing how the processor should handle a particular interrupt or exception.

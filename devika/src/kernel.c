@@ -21,9 +21,9 @@ int main()
     mouse_init();
     puts("mouse init done");
 
-    mouse_handler();
+    // mouse_handler();
     
-    // puts("Launching shell");
-    // launchShell(4);
+    puts("Launching shell");
+    launchShell(4);
     return 0;
 }
