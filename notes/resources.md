@@ -1,3 +1,32 @@
+# OS Development Resources
+--
+
+This will help you to develop our own operating system
+
+1. boot loader -> loader.s
+2. Kernel
+	- printf => hello world
+3. Global Descriptor Table
+4. Hardware communication port.c
+5. Interrupts
+6. Keyboard
+7. Mouse
+8. PCI
+9. Graphics mode (VGA)
+10. GUI Framework
+11. Dynamic Memory Allocation
+12. Networking
+13. Hard drives
+14. System call
+15. Ethernet
+16. ARP
+17. Internet Protocol (IP)
+18. ICMP
+19. UDP
+20. TCP
+21. Partition Table
+22. File System (FAT32)
+
 **BIOS Functions**
 
 https://redirect.cs.umbc.edu/courses/undergraduate/CMSC211/fall01/burt/tech_help/BIOSandDOS_Interrupts.html
@@ -103,7 +132,239 @@ The Interrupt Descriptor Table (IDT) is a data structure used in the x86 archite
 
 The Global Descriptor Table (GDT) is a data structure used by the x86 architecture to define memory segments and their access privileges. It's an essential part of memory management in protected mode.
 
-**FAT**
 
-The FAT (File Allocation Table) file system is a popular file system used in various operating systems, including older versions of Windows, as well as in some embedded systems like digital cameras and portable devices. It's known for its simplicity and compatibility across different platforms.
+### Hello World Operating System
+
+Minimal requirement
+- loader
+- linker
+- kernel
+
+```c
+// types.h
+
+#ifndef __TYPES_H
+#define __TYPES_H
+
+    typedef char                     int8_t;
+    typedef unsigned char           uint8_t;
+    typedef short                   int16_t;
+    typedef unsigned short         uint16_t;
+    typedef int                     int32_t;
+    typedef unsigned int           uint32_t;
+    typedef long long int           int64_t;
+    typedef unsigned long long int uint64_t;
+
+#endif
+```
+
+```asm
+; loader.s
+
+.set MAGIC, 0x1badb002
+.set FLAGS, (1<<0 | 1<<1)
+.set CHECKSUM, -(MAGIC + FLAGS)
+
+.section .multiboot
+    .long MAGIC
+    .long FLAGS
+    .long CHECKSUM
+
+
+.section .text
+.extern kernelMain 
+.global loader
+
+
+loader:
+    mov $kernel_stack, %esp 
+    push %eax
+    push %ebx
+    call kernelMain
+
+
+_stop:
+    cli
+    hlt
+    jmp _stop
+
+
+.section .bss
+.space 2*1024*1024; # 2 MiB
+kernel_stack:
+
+; -----------------another way------------------------
+bits    32
+section         .text
+        align   4
+        dd      0x1BADB002
+        dd      0x00
+        dd      - (0x1BADB002+0x00)
+
+global start
+extern main            ; this function is gonna be located in our c code(kernel.c)
+start:
+        cli             ;clears the interrupts
+        call main      ;send processor to continue execution from the kamin funtion in c code
+        hlt             ; halt the cpu(pause it from executing from this address
+
+```
+
+```ld
+// linker.ld
+
+ENTRY(loader)
+OUTPUT_FORMAT(elf32-i386)
+OUTPUT_ARCH(i386:i386)
+
+SECTIONS
+{
+  . = 0x0100000;
+
+  .text :
+  {
+    *(.multiboot)
+    *(.text*)
+    *(.rodata)
+  }
+
+  .data  :
+  {
+    start_ctors = .;
+    KEEP(*( .init_array ));
+    KEEP(*(SORT_BY_INIT_PRIORITY( .init_array.* )));
+    end_ctors = .;
+
+    *(.data)
+  }
+
+  .bss  :
+  {
+    *(.bss)
+  }
+
+  /DISCARD/ : { *(.fini_array*) *(.comment) }
+}
+```
+
+**Another linker**
+
+```
+OUTPUT_FORMAT(elf32-i386)
+ENTRY(start)
+SECTIONS
+ {
+   . = 0x100000;
+   .text : { *(.text) }
+   .data : { *(.data) }
+   .bss  : { *(.bss)  }
+ }
+```
+
+```c
+// kernel.c
+void printf(char *str)
+{
+    static uint16_t *VideoMemory = (uint16_t *)0xb8000;
+
+    static uint8_t x = 0, y = 0;
+
+    for (int i = 0; str[i] != '\0'; ++i)
+    {
+        switch (str[i])
+        {
+        case '\n':
+            x = 0;
+            y++;
+            break;
+        default:
+            VideoMemory[80 * y + x] = (VideoMemory[80 * y + x] & 0xFF00) | str[i];
+            x++;
+            break;
+        }
+
+        if (x >= 80)
+        {
+            x = 0;
+            y++;
+        }
+
+        if (y >= 25)
+        {
+            for (y = 0; y < 25; y++)
+                for (x = 0; x < 80; x++)
+                    VideoMemory[80 * y + x] = (VideoMemory[80 * y + x] & 0xFF00) | ' ';
+            x = 0;
+            y = 0;
+        }
+    }
+}
+
+void main() {
+    printf("hello from kernel");
+}
+```
+
+makefile => if not work than write file name is MakeFile
+```
+# sudo apt-get install g++ binutils libc6-dev-i386
+
+GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
+ASPARAMS = --32
+LDPARAMS = -melf_i386
+
+objects = loader.o kernel.o
+
+run: mykernel.iso
+	(killall VirtualBox && sleep 1) || true
+	VirtualBox --startvm 'My Operating System' &
+
+%.o: %.cpp
+	gcc $(GCCPARAMS) -c -o $@ $<
+
+%.o: %.s
+	as $(ASPARAMS) -o $@ $<
+
+mykernel.bin: linker.ld $(objects)
+	ld $(LDPARAMS) -T $< -o $@ $(objects)
+
+install: mykernel.bin
+	sudo cp $< /boot/mykernel.bin
+
+mykernel.iso: mykernel.bin
+	mkdir iso
+	mkdir iso/boot
+	mkdir iso/boot/grub
+	cp mykernel.bin iso/boot/mykernel.bin
+	echo 'set timeout=0'                      > iso/boot/grub/grub.cfg
+	echo 'set default=0'                     >> iso/boot/grub/grub.cfg
+	echo ''                                  >> iso/boot/grub/grub.cfg
+	echo 'menuentry "My Operating System" {' >> iso/boot/grub/grub.cfg
+	echo '  multiboot /boot/mykernel.bin'    >> iso/boot/grub/grub.cfg
+	echo '  boot'                            >> iso/boot/grub/grub.cfg
+	echo '}'                                 >> iso/boot/grub/grub.cfg
+	grub-mkrescue --output=mykernel.iso iso
+	rm -rf iso
+
+run: mykernel.iso
+	(killall VirtualBox && sleep 1) || true
+	VirtualBox --startvm 'My Operating System' &
+```
+
+
+**Commands**
+
+if makefile not work than we directly run commands to run os's kernel
+
+```sh
+# compilation
+nasm -f elf32 loader.s -o loader.o
+gcc -m32 -c kernel.c -o kernel.o -ffreestanding
+
+# linking
+ld -m elf_i386 -T linker.ld -o kernel.bin loader.o kernel.o
+
+# run
+qemu-system-x86_64 -kernel kernel.bin
+```
 
